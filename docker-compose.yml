@@ -24,11 +24,21 @@ services:
         restart: unless-stopped
         depends_on:
           - postgres
+       networks:
+         bracket_lan
 
     postgres:
         image: postgres
         restart: always
+        ports:
+          - "5432:5432"
         environment:
           POSTGRES_DB: bracket_dev
           POSTGRES_USER: bracket_dev
           POSTGRES_PASSWORD: bracket_dev
+       networks:
+         bracket_lan
+
+networks:
+    bracket_lan:
+        driver: bridge
